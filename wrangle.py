@@ -20,5 +20,42 @@ def date_index(df):
     df = df.sort_values(by='Date')
     return df
 
+def drop_col(df):
+    """This function drops unneeded columns (due to large nulls)"""
+    df = df.drop(columns =['Environment','% Marked Local','Organic'])
+    return df
 
+
+def num_stores(df):
+    """This function changes preps the column Number of Stores for dtype change"""
+    df['Number of Stores']= df['Number of Stores'].apply(lambda x : x.replace(',',''))
+    df['Number of Stores']= df['Number of Stores'].astype(int)
+    return df
+
+def last_yr_stores(df):
+    """This function preps, fills nulls and changes dtypes the column Last Year Stores
+    for exploration of data"""
+    df['Last Year\n Stores'] = df['Last Year\n Stores'].astype(str)
+    df['Last Year\n Stores'] = df['Last Year\n Stores'].apply(lambda x : x.replace(',',''))
+    df['Last Year\n Stores'] = df['Last Year\n Stores'].fillna(value='0')
+    return df
+
+def fill_nulls(df):
+    """This function fills in NaNs within the various columns of df"""
+    df['Variety'] = df[['Variety']].fillna(value='UNKNOWN')
+    df['Low Price'] = df[['Low Price']].fillna(value = 0.00)
+    df['High Price'] = df[['High Price']].fillna(value = 0.00)
+    df['Last Year\n Weighted Avg Price'] = df[['Last Year\n Weighted Avg Price']].fillna(value = 0)
+    return df
+
+def main_clean(df):
+    """This is the 'momma' wrangle function that combines all the above:"""
+    df = creating_pumpkin_patch(df)
+    df = date_index(df)
+    df = drop_col(df)
+    df = num_stores(df)
+    df = last_yr_stores(df)
+    df = fill_nulls(df)
+    return df
+    
 
