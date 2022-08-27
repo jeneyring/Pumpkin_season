@@ -57,5 +57,5 @@ def main_clean(df):
     df = last_yr_stores(df)
     df = fill_nulls(df)
     return df
-    
+
 
