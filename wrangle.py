@@ -2,7 +2,7 @@
 import pandas as pd
 
 
-def creating_pumpkin_patch(df):
+def creating_pumpkin_patch():
     """This function used the USDA pulled csv datasets of pumpkin sales in the 
     U.S. from 2018-2022 and merges each csv together"""
     df = pd.read_csv("pumpkin2020.csv")
@@ -50,7 +50,7 @@ def fill_nulls(df):
 
 def main_clean(df):
     """This is the 'momma' wrangle function that combines all the above:"""
-    df = creating_pumpkin_patch(df)
+    df = creating_pumpkin_patch()
     df = date_index(df)
     df = drop_col(df)
     df = num_stores(df)
